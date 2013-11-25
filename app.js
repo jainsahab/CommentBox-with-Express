@@ -20,8 +20,11 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
+app.use(express.bodyParser());
+app.use(express.cookieParser());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // development only
 if ('development' == app.get('env')) {
@@ -31,7 +34,9 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/login', user.login);
 app.get('/Profile',user.profile);
+app.get('/signOut',user.signOut);
 app.post('/authentication',user.authenticate);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

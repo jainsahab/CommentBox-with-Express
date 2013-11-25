@@ -2,14 +2,30 @@ html
   head
     title Login page
   body
-    h1 #{message}
+    h1 Login
     form#login(name='login_form', method='post', action='/authentication')
-      div
-        label(for='username') E-mail:
-        input#username(type='text', name='email', placeholder='Email', required='required')
-      div
-        label(for='password') Password:
-        input#password(type='password', name='password', placeholder='Password', required='required')
-      br
-      div
-        button#login_button(type='submit') Login
+      table
+        tr
+          div
+            td
+              label(for='username') E-mail:
+            td
+              input#username(type='text', name='email', placeholder='Email', required='required')
+        tr
+          div
+            td
+              label(for='password') Password:
+            td
+              input#password(type='password', name='password', placeholder='Password', required='required')
+        tr
+          div
+            td
+              font(size='3') Remember Me:
+            td
+              input(type='checkbox', name='remember')
+        tr
+          div
+            td
+              button#login_button(type='submit') Login
+    h2 #{message}
+    

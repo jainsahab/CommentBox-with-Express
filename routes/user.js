@@ -8,18 +8,28 @@ var credentialsMatch=function(email,password){
 
 
 exports.login = function(req, res){
-	res.render('login',{message:req.query.message});
+	req.cookies.remember 
+	&&	res.redirect('/Profile') 
+	||	res.render('login',{message:req.query.message});
 }
 
 exports.profile = function(req, res){
-	res.render('Profile');
+	req.cookies.login && res.render('Profile') || res.redirect('/login?message="Need+to+Login+First"');
+}
+
+exports.signOut = function(req, res){
+	res.clearCookie('remember');
+	res.redirect('/login');
 }
 
 exports.authenticate = function(req, res){
 	var email=req.body.email;
 	var password=req.body.password;
-	if(credentialsMatch(email,password))
+	if(credentialsMatch(email,password)){
+		res.cookie('login','1');
+		req.body.remember && res.cookie('remember','1');
 		res.redirect('/Profile');
+	}
 	else
-		res.redirect('/login?message="Login+Failed"')
+		res.redirect('/login?message=Login+Failed')
 }
